@@ -1,0 +1,31 @@
+.search-bar {
+    background-color: #3F56B3;
+    padding-top: 13px;
+    padding-bottom: 13px;
+
+    &__form {
+        display: flex;
+        justify-content: center;
+
+    }
+
+    &__form input {
+        border: 2px solid white;
+        border-radius: 4px;
+        line-height: 40px;
+        padding-left: 12px;
+        width: 416px;
+
+
+        &:focus {
+            border: 2px solid #5192F0;
+            outline: none;
+        }
+    }
+
+    &__form button {
+        line-height: 44px;
+        border-radius: 4px;
+        border: none;
+    }
+}
