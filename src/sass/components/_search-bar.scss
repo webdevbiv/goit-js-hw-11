@@ -15,6 +15,7 @@
         line-height: 40px;
         padding-left: 12px;
         width: 416px;
+        font-weight: 500;
 
 
         &:focus {
@@ -27,5 +28,9 @@
         line-height: 44px;
         border-radius: 4px;
         border: none;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 }
