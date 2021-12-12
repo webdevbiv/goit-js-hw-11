@@ -65,7 +65,7 @@ function SearchResult(fetchPictures) {
 }
 
 function successMessage(fetchPictures) {
-    Notify.success(`Hooray! We found ${fetchPictures.totalHits} images.`);
+    Notify.success(`Hooray! We found ${fetchPictures.total} images.`);
 }
 
 function createMarkup(fetchPictures, element, template) {
