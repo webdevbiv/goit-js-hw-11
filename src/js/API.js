@@ -6,7 +6,8 @@ const options = {
     image_type: 'image_type=photo',
     orientation: 'orientation=horizontal',
     safesearch: 'safesearch=true',
-    language: 'language=en'
+    language: 'language=en',
+    per_page: '40'
 }
 
 // key - твой уникальный ключ доступа к API.
@@ -22,10 +23,13 @@ export default class APIsearch {
     }
     async fetchPictures() {
         const url = `${BASE_URL_KEY}&q=${this.shearchQuery}&${this.language}&${options.image_type}
-        &${options.orientation}&${options.safesearch}`;
+        &${options.orientation}&${options.safesearch}&page=${this.page}&per_page=${options.per_page}`;
+        console.log(url);
 
         const fetchPictures = (await axios.get(`${url}`)).data
         console.log(fetchPictures);
+        this.page += 1;
+        console.log(this.page);
         return fetchPictures
     }
     get query() {
