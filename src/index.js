@@ -97,6 +97,12 @@ function showLoadButtons() {
     refs.infScroll.classList.remove('visually-hidden')
 }
 
+function hideLoadButtons() {
+
+    refs.loadMore.classList.add('visually-hidden')
+    refs.infScroll.classList.add('visually-hidden')
+}
+
 function onClick(e) {
     e.preventDefault()
     loadMore()
@@ -116,9 +122,10 @@ function loadMore() {
     userSearch.fetchPictures().then(fetchPictures => {
         createMarkup(fetchPictures, refs.gallery, pictureCardTpl)
         refs.loadMore.disabled = false;
-        if (fetchPictures.totalHits < 40) {
+        if (fetchPictures.hits.length === 0) {
             Notify.warning(`We're sorry, but you've reached the end of search results.`);
             window.removeEventListener('scroll', infiniteScroll)
+            hideLoadButtons()
         };
     }).then(scroll)
 }
