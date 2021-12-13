@@ -35,12 +35,14 @@ export default class APIsearch {
             console.log('incremented page', this.page);
             return fetchPictures
         } catch (e) {
-            if (e.toJSON().message === 'Request failed with status code 400') {
+            if (e.toJSON().message ===
+                'Request failed with status code 400') {
                 Notify.warning(`We're sorry, but you've reached the end of search results.`);
                 hideLoadButtons()
                 window.removeEventListener('scroll')
                 return
             }
+            console.log(e);
         }
     }
     get query() {
