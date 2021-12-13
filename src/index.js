@@ -106,7 +106,6 @@ function loadMore() {
         createMarkup(fetchPictures, refs.gallery, pictureCardTpl)
         refs.loadMore.disabled = false;
     }).then(scroll)
-
 }
 
 function onClickInfScroll() {
