@@ -37,7 +37,7 @@ refs.infScroll.addEventListener('click', onClickInfScroll)
 
 function onSubmit(e) {
     e.preventDefault()
-    const userInput = e.currentTarget.elements.searchQuery.value
+    const userInput = e.currentTarget.elements.searchQuery.value.trim()
 
     if (!userInput || currentSearchInput === userInput) {
         Notify.info('Please enter new search');
@@ -53,6 +53,7 @@ function onSubmit(e) {
 
     currentSearchInput = userInput
     userSearch.query = userInput
+
     userSearch.fetchPictures()
         .then(emptySearchResult)
         .then(SearchResult)
