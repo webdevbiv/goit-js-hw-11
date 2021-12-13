@@ -14,6 +14,7 @@ const refs = {
     button: document.querySelector('button'),
     gallery: document.querySelector('.gallery'),
     loadMore: document.querySelector('.load-more'),
+    infScroll: document.querySelector('#inf-scroll'),
     boxOptions: {
         overlay: true,
         animationSpeed: 150,
@@ -31,6 +32,8 @@ let currentSearchInput = '';
 
 refs.form.addEventListener('submit', onSubmit)
 refs.loadMore.addEventListener('click', onClick)
+refs.infScroll.addEventListener('click', onClickInfScroll)
+
 
 function onSubmit(e) {
     e.preventDefault()
@@ -60,7 +63,7 @@ function SearchResult(fetchPictures) {
     if (fetchPictures.totalHits > 0) {
         successMessage(fetchPictures)
         createMarkup(fetchPictures, refs.gallery, pictureCardTpl)
-        showLoadMore()
+        showLoadButtons()
     }
 }
 
@@ -79,12 +82,25 @@ function createMarkup(fetchPictures, element, template) {
 function clearAdjacentHTML() {
     refs.gallery.innerHTML = ''
 }
-function showLoadMore() {
+function showLoadButtons() {
     refs.loadMore.classList.remove('visually-hidden')
+    refs.infScroll.classList.remove('visually-hidden')
 }
 
 function onClick(e) {
     e.preventDefault()
+    loadMore()
+}
+
+function scroll() {
+    const { height: cardHeight } = refs.gallery
+        .firstElementChild.getBoundingClientRect();
+    window.scrollBy({
+        top: cardHeight * 2.2,
+        behavior: "smooth",
+    });
+}
+function loadMore() {
     refs.loadMore.disabled = true;
     userSearch.fetchPictures().then(fetchPictures => {
         createMarkup(fetchPictures, refs.gallery, pictureCardTpl)
@@ -93,12 +109,19 @@ function onClick(e) {
 
 }
 
-function scroll() {
-    const { height: cardHeight } = refs.gallery
-        .firstElementChild.getBoundingClientRect();
-
-    window.scrollBy({
-        top: cardHeight * 2.2,
-        behavior: "smooth",
-    });
+function onClickInfScroll() {
+    window.addEventListener('scroll', () => {
+        console.log(window.scrollY) //scrolled from top
+        console.log(window.innerHeight) //visible part of screen
+        if (window.scrollY + window.innerHeight >=
+            document.documentElement.scrollHeight) {
+            refs.loadMore.disabled = true;
+            userSearch.fetchPictures().then(fetchPictures => {
+                createMarkup(fetchPictures, refs.gallery, pictureCardTpl)
+                refs.loadMore.disabled = false;
+            })
+        }
+    })
+    loadMore()
 }
+

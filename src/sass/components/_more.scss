@@ -17,6 +17,25 @@
     border-radius: 4px;
     border: none;
     padding: 6px 14px;
+    margin-right: 10px;
+    width: 127px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #443fdc;
+    }
+}
+
+.load-more__scroll {
+    display: flex;
+    justify-content: center;
+    background-color: #3F56B3;
+    font-weight: 700;
+    color: #FFFFFF;
+    line-height: 44px;
+    border-radius: 4px;
+    border: none;
+    padding: 6px 14px;
 
     &:hover {
         cursor: pointer;
