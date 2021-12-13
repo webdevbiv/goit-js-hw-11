@@ -125,7 +125,7 @@ function loadMore() {
         if (fetchPictures.hits.length < 40) {
             Notify.warning(`We're sorry, but you've reached the end of search results.`);
             hideLoadButtons()
-            window.removeEventListener('scroll')
+            window.removeEventListener('scroll', infiniteScroll)
             return
         };
         refs.loadMore.disabled = false;
