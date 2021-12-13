@@ -123,7 +123,7 @@ function loadMore() {
     userSearch.fetchPictures().then(fetchPictures => {
         createMarkup(fetchPictures, refs.gallery, pictureCardTpl)
         refs.loadMore.disabled = false;
-        if (fetchPictures.hits.length < 40) {
+        if (fetchPictures.hits.length < 40 || fetchPictures.hits.length === 0) {
             Notify.warning(`We're sorry, but you've reached the end of search results.`);
             window.removeEventListener('scroll', infiniteScroll)
             hideLoadButtons()
