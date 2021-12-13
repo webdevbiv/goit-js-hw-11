@@ -22,20 +22,29 @@ export default class APIsearch {
         this.page = 1;
     }
     async fetchPictures() {
-        const url = `${BASE_URL_KEY}&q=${this.shearchQuery}&${this.language}&${options.image_type}
-        &${options.orientation}&${options.safesearch}&page=${this.page}&per_page=${options.per_page}`;
-        console.log(url);
-
-        const fetchPictures = (await axios.get(`${url}`)).data
-        console.log(fetchPictures);
-        this.page += 1;
-        console.log(this.page);
-        return fetchPictures
+        try {
+            const url = `${BASE_URL_KEY}&q=${this.shearchQuery}&${this.language}&${options.image_type}
+            &${options.orientation}&${options.safesearch}&page=${this.page}&per_page=${options.per_page}`;
+            console.log(url);
+            const fetchPictures = (await axios.get(`${url}`)).data
+            console.log('current page', this.page);
+            this.incrementPages()
+            console.log('incremented page', this.page);
+            return fetchPictures
+        } catch (e) {
+            console.log(e);
+        }
     }
     get query() {
         return this.shearchQuery
     }
     set query(value) {
         this.shearchQuery = value
+    }
+    incrementPages() {
+        return this.page += 1
+    }
+    resetPages() {
+        return this.page = 1
     }
 }

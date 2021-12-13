@@ -43,14 +43,24 @@ function onSubmit(e) {
         Notify.info('Please enter new search');
         return
     }
+    if (currentSearchInput !== userInput) {
+        userSearch.resetPages()
+        window.removeEventListener('scroll', infiniteScroll)
+    }
 
-    console.log('this is userInput from index:', userInput);
+    console.log('this is userInput :', userInput);
     clearAdjacentHTML()
 
     currentSearchInput = userInput
     userSearch.query = userInput
-    userSearch.fetchPictures().then(emptySearchResult).then(SearchResult)
+    userSearch.fetchPictures()
+        .then(emptySearchResult)
+        .then(SearchResult)
+        .catch(error => {
+            console.log(error);
+        })
 }
+
 
 function emptySearchResult(fetchPictures) {
     if (fetchPictures.totalHits === 0) {
@@ -59,10 +69,9 @@ function emptySearchResult(fetchPictures) {
     return fetchPictures
 }
 function SearchResult(fetchPictures) {
-    console.log('we are here', fetchPictures);
     if (fetchPictures.totalHits > 0) {
-        successMessage(fetchPictures)
         createMarkup(fetchPictures, refs.gallery, pictureCardTpl)
+        successMessage(fetchPictures)
         showLoadButtons()
     }
 }
@@ -83,6 +92,7 @@ function clearAdjacentHTML() {
     refs.gallery.innerHTML = ''
 }
 function showLoadButtons() {
+
     refs.loadMore.classList.remove('visually-hidden')
     refs.infScroll.classList.remove('visually-hidden')
 }
@@ -100,27 +110,33 @@ function scroll() {
         behavior: "smooth",
     });
 }
+
 function loadMore() {
     refs.loadMore.disabled = true;
     userSearch.fetchPictures().then(fetchPictures => {
         createMarkup(fetchPictures, refs.gallery, pictureCardTpl)
         refs.loadMore.disabled = false;
+        if (fetchPictures.totalHits < 40) {
+            Notify.warning(`We're sorry, but you've reached the end of search results.`);
+        };
     }).then(scroll)
 }
 
 function onClickInfScroll() {
-    window.addEventListener('scroll', () => {
-        console.log(window.scrollY) //scrolled from top
-        console.log(window.innerHeight) //visible part of screen
-        if (window.scrollY + window.innerHeight + 200 >=
-            document.documentElement.scrollHeight) {
-            refs.loadMore.disabled = true;
-            userSearch.fetchPictures().then(fetchPictures => {
-                createMarkup(fetchPictures, refs.gallery, pictureCardTpl)
-                refs.loadMore.disabled = false;
-            })
-        }
-    })
+    window.addEventListener('scroll', infiniteScroll)
     loadMore()
+}
+
+function infiniteScroll() {
+    console.log(window.scrollY) //scrolled from top
+    console.log(window.innerHeight) //visible part of screen
+    if (window.scrollY + window.innerHeight + 200 >=
+        document.documentElement.scrollHeight) {
+        refs.loadMore.disabled = true;
+        userSearch.fetchPictures().then(fetchPictures => {
+            createMarkup(fetchPictures, refs.gallery, pictureCardTpl)
+            refs.loadMore.disabled = false;
+        })
+    }
 }
 
