@@ -141,8 +141,8 @@ function onClickInfScroll() {
 export function infiniteScroll() {
     if (window.scrollY + window.innerHeight >=
         document.documentElement.scrollHeight) {
-        loadMore()
         refreshLightBox()
+        loadMore()
     }
 }
 
