@@ -25,7 +25,6 @@
 
 :root {
     --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    --animation-duration: 500ms;
 }
 
 .gallery {
@@ -91,11 +90,14 @@
     color: black;
     text-decoration: none;
     position: relative;
+    animation-name: scale;
     transform: scale(1);
+    transition-duration: 600ms;
 
     &:hover,
     :focus {
         transform: scale(1.04);
+        transition-duration: 300ms;
     }
 }
 
