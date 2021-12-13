@@ -65,6 +65,7 @@ function onSubmit(e) {
 function emptySearchResult(fetchPictures) {
     if (fetchPictures.totalHits === 0) {
         Notify.failure('Sorry, there are no images matching your search query. Please try again.');
+        hideLoadButtons()
     }
     return fetchPictures
 }
