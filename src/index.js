@@ -97,8 +97,7 @@ function showLoadButtons() {
     refs.infScroll.classList.remove('visually-hidden')
 }
 
-function hideLoadButtons() {
-
+export function hideLoadButtons() {
     refs.loadMore.classList.add('visually-hidden')
     refs.infScroll.classList.add('visually-hidden')
 }

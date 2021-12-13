@@ -1,3 +1,5 @@
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { hideLoadButtons } from '../index'
 const axios = require('axios').default;
 const BASE_URL_KEY = 'https://pixabay.com/api/?key=24773665-69599298287e5482cf3fdda29';
 
@@ -27,12 +29,16 @@ export default class APIsearch {
             &${options.orientation}&${options.safesearch}&page=${this.page}&per_page=${options.per_page}`;
             console.log(url);
             const fetchPictures = (await axios.get(`${url}`)).data
+            console.log(fetchPictures);
             console.log('current page', this.page);
             this.incrementPages()
             console.log('incremented page', this.page);
             return fetchPictures
         } catch (e) {
-            console.log(e);
+            if (e.toJSON().message === 'Request failed with status code 400') {
+                Notify.warning(`We're sorry, but you've reached the end of search results.`);
+                hideLoadButtons()
+            }
         }
     }
     get query() {
