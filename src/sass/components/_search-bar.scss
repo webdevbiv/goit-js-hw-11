@@ -21,13 +21,13 @@
         min-width: 416px;
         font-weight: 500;
         line-height: 40px;
-
-
+        @media screen and (max-width: 560px) {
+            min-width: 100px;
+        }
         &:focus {
             border: 2px solid #5192F0;
             outline: none;
         }
-
         &:hover {
             border: 2px solid #5192F0;
         }
