@@ -129,6 +129,8 @@ function loadMore() {
             window.removeEventListener('scroll', infiniteScroll)
             hideLoadButtons()
             refs.loadMore.disabled = false;
+            window.removeEventListener('scroll')
+            return
         };
     }).then(scroll)
 }
