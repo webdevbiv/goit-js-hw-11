@@ -122,16 +122,13 @@ function loadMore() {
     refs.loadMore.disabled = true;
     userSearch.fetchPictures().then(fetchPictures => {
         createMarkup(fetchPictures, refs.gallery, pictureCardTpl)
-
-        console.log(fetchPictures.hits.length);
-        if (fetchPictures.hits.length < 40 || fetchPictures.hits.length === 0) {
+        if (fetchPictures.hits.length < 40) {
             Notify.warning(`We're sorry, but you've reached the end of search results.`);
-            window.removeEventListener('scroll', infiniteScroll)
             hideLoadButtons()
-            refs.loadMore.disabled = false;
             window.removeEventListener('scroll')
             return
         };
+        refs.loadMore.disabled = false;
     }).then(scroll)
 }
 
