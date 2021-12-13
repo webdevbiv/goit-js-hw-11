@@ -1,5 +1,5 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { showLoadButtons, hideLoadButtons, infiniteScroll } from '../index'
+import { showLoadButtons, hideLoadButtons, infiniteScroll, refreshLightBox } from '../index'
 const axios = require('axios').default;
 const BASE_URL_KEY = 'https://pixabay.com/api/?key=24773665-69599298287e5482cf3fdda29';
 
@@ -41,9 +41,10 @@ export default class APIsearch {
         } catch (e) {
             if (e.toJSON().message ===
                 'Request failed with status code 400') {
+                window.removeEventListener('scroll', infiniteScroll)
                 Notify.warning(`We're sorry, but you've reached the end of search results.`);
                 hideLoadButtons()
-                window.removeEventListener('scroll', infiniteScroll)
+                refreshLightBox()
                 return
             }
             console.log(e);

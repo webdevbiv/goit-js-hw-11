@@ -85,10 +85,7 @@ function successMessage(fetchPictures) {
 
 function createMarkup(fetchPictures, element, template) {
     element.insertAdjacentHTML('beforeend', template(fetchPictures))
-    if (!refs.lightbox) {
-        refs.lightbox = new SimpleLightbox('.gallery a', refs.boxOptions);
-    }
-    refs.lightbox.refresh()
+    refreshLightBox()
 }
 
 function clearAdjacentHTML() {
@@ -148,3 +145,9 @@ export function infiniteScroll() {
     }
 }
 
+export function refreshLightBox() {
+    if (!refs.lightbox) {
+        refs.lightbox = new SimpleLightbox('.gallery a', refs.boxOptions);
+    }
+    refs.lightbox.refresh()
+}
