@@ -38,6 +38,7 @@ export default class APIsearch {
             if (e.toJSON().message === 'Request failed with status code 400') {
                 Notify.warning(`We're sorry, but you've reached the end of search results.`);
                 hideLoadButtons()
+                window.removeEventListener('scroll')
             }
         }
     }
