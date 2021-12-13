@@ -72,7 +72,9 @@ function SearchResult(fetchPictures) {
     if (fetchPictures.totalHits > 0) {
         createMarkup(fetchPictures, refs.gallery, pictureCardTpl)
         successMessage(fetchPictures)
-        showLoadButtons()
+        if (fetchPictures.hits.length === 40) {
+            showLoadButtons()
+        }
     }
 }
 
@@ -121,7 +123,7 @@ function loadMore() {
     userSearch.fetchPictures().then(fetchPictures => {
         createMarkup(fetchPictures, refs.gallery, pictureCardTpl)
         refs.loadMore.disabled = false;
-        if (fetchPictures.hits.length === 0) {
+        if (fetchPictures.hits.length < 40) {
             Notify.warning(`We're sorry, but you've reached the end of search results.`);
             window.removeEventListener('scroll', infiniteScroll)
             hideLoadButtons()
