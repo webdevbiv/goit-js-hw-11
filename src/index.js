@@ -94,7 +94,6 @@ function clearAdjacentHTML() {
     refs.gallery.innerHTML = ''
 }
 function showLoadButtons() {
-
     refs.loadMore.classList.remove('visually-hidden')
     refs.infScroll.classList.remove('visually-hidden')
 }
@@ -119,17 +118,14 @@ function scroll() {
 }
 
 function loadMore() {
-    refs.loadMore.disabled = true;
     userSearch.fetchPictures().then(fetchPictures => {
         createMarkup(fetchPictures, refs.gallery, pictureCardTpl)
         if (fetchPictures.hits.length < 40) {
             Notify.warning(`We're sorry, but you've reached the end of search results.`);
             hideLoadButtons()
             window.removeEventListener('scroll', infiniteScroll)
-            refs.loadMore.disabled = false;
             return
         };
-        refs.loadMore.disabled = false;
     }).then(scroll)
 }
 
