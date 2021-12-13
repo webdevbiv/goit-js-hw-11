@@ -1,5 +1,5 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { hideLoadButtons, infiniteScroll } from '../index'
+import { showLoadButtons, hideLoadButtons, infiniteScroll } from '../index'
 const axios = require('axios').default;
 const BASE_URL_KEY = 'https://pixabay.com/api/?key=24773665-69599298287e5482cf3fdda29';
 
@@ -25,6 +25,8 @@ export default class APIsearch {
     }
     async fetchPictures() {
         try {
+            console.time()
+            hideLoadButtons()
             const url = `${BASE_URL_KEY}&q=${this.shearchQuery}&${this.language}&${options.image_type}
             &${options.orientation}&${options.safesearch}&page=${this.page}&per_page=${options.per_page}`;
             console.log(url);
@@ -33,6 +35,8 @@ export default class APIsearch {
             console.log('current page', this.page);
             this.incrementPages()
             console.log('incremented page', this.page);
+            showLoadButtons()
+            console.timeEnd()
             return fetchPictures
         } catch (e) {
             if (e.toJSON().message ===

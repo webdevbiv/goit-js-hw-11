@@ -72,8 +72,8 @@ function SearchResult(fetchPictures) {
     if (fetchPictures.totalHits > 0) {
         createMarkup(fetchPictures, refs.gallery, pictureCardTpl)
         successMessage(fetchPictures)
-        if (fetchPictures.hits.length === 40) {
-            showLoadButtons()
+        if (fetchPictures.hits.length < 40) {
+            hideLoadButtons()
         }
     }
 }
@@ -93,7 +93,7 @@ function createMarkup(fetchPictures, element, template) {
 function clearAdjacentHTML() {
     refs.gallery.innerHTML = ''
 }
-function showLoadButtons() {
+export function showLoadButtons() {
     refs.loadMore.classList.remove('visually-hidden')
     refs.infScroll.classList.remove('visually-hidden')
 }
