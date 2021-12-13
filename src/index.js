@@ -131,7 +131,7 @@ function onClickInfScroll() {
 function infiniteScroll() {
     // console.log(window.scrollY) //scrolled from top
     // console.log(window.innerHeight) //visible part of screen
-    if (window.scrollY + window.innerHeight + 200 >=
+    if (window.scrollY + window.innerHeight >=
         document.documentElement.scrollHeight) {
         refs.loadMore.disabled = true;
         userSearch.fetchPictures().then(fetchPictures => {
