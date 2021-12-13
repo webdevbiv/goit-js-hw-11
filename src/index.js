@@ -74,9 +74,10 @@ function SearchResult(fetchPictures) {
     if (fetchPictures.totalHits > 0) {
         createMarkup(fetchPictures, refs.gallery, pictureCardTpl)
         successMessage(fetchPictures)
-        if (fetchPictures.hits.length < 40) {
-            hideLoadButtons()
-        }
+        showLoadButtons()
+    }
+    if (fetchPictures.hits.length < 40) {
+        hideLoadButtons()
     }
 }
 
@@ -117,14 +118,18 @@ function scroll() {
 }
 
 function loadMore() {
+    refreshLightBox()
+    hideLoadButtons()
     userSearch.fetchPictures().then(fetchPictures => {
         createMarkup(fetchPictures, refs.gallery, pictureCardTpl)
         if (fetchPictures.hits.length < 40) {
             Notify.warning(`We're sorry, but you've reached the end of search results.`);
             hideLoadButtons()
             window.removeEventListener('scroll', infiniteScroll)
+            refreshLightBox()
             return
         };
+        showLoadButtons()
     }).then(scroll)
 }
 
@@ -134,15 +139,10 @@ function onClickInfScroll() {
 }
 
 export function infiniteScroll() {
-    // console.log(window.scrollY) //scrolled from top
-    // console.log(window.innerHeight) //visible part of screen
     if (window.scrollY + window.innerHeight >=
         document.documentElement.scrollHeight) {
         loadMore()
-        // userSearch.fetchPictures().then(fetchPictures => {
-        //     createMarkup(fetchPictures, refs.gallery, pictureCardTpl)
-        //     refs.loadMore.disabled = false;
-        // })
+        refreshLightBox()
     }
 }
 

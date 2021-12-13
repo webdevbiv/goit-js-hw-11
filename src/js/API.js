@@ -26,7 +26,6 @@ export default class APIsearch {
     async fetchPictures() {
         try {
             console.time()
-            hideLoadButtons()
             const url = `${BASE_URL_KEY}&q=${this.shearchQuery}&${this.language}&${options.image_type}
             &${options.orientation}&${options.safesearch}&page=${this.page}&per_page=${options.per_page}`;
             console.log(url);
@@ -35,7 +34,6 @@ export default class APIsearch {
             console.log('current page', this.page);
             this.incrementPages()
             console.log('incremented page', this.page);
-            showLoadButtons()
             console.timeEnd()
             return fetchPictures
         } catch (e) {
