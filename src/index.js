@@ -122,12 +122,13 @@ function loadMore() {
     refs.loadMore.disabled = true;
     userSearch.fetchPictures().then(fetchPictures => {
         createMarkup(fetchPictures, refs.gallery, pictureCardTpl)
-        refs.loadMore.disabled = false;
+
         console.log(fetchPictures.hits.length);
         if (fetchPictures.hits.length < 40 || fetchPictures.hits.length === 0) {
             Notify.warning(`We're sorry, but you've reached the end of search results.`);
             window.removeEventListener('scroll', infiniteScroll)
             hideLoadButtons()
+            refs.loadMore.disabled = false;
         };
     }).then(scroll)
 }
@@ -142,7 +143,6 @@ function infiniteScroll() {
     // console.log(window.innerHeight) //visible part of screen
     if (window.scrollY + window.innerHeight >=
         document.documentElement.scrollHeight) {
-        refs.loadMore.disabled = true;
         loadMore()
         // userSearch.fetchPictures().then(fetchPictures => {
         //     createMarkup(fetchPictures, refs.gallery, pictureCardTpl)
