@@ -1,5 +1,5 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { hideLoadButtons } from '../index'
+import { hideLoadButtons, infiniteScroll } from '../index'
 const axios = require('axios').default;
 const BASE_URL_KEY = 'https://pixabay.com/api/?key=24773665-69599298287e5482cf3fdda29';
 

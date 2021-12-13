@@ -126,6 +126,7 @@ function loadMore() {
             Notify.warning(`We're sorry, but you've reached the end of search results.`);
             hideLoadButtons()
             window.removeEventListener('scroll', infiniteScroll)
+            refs.loadMore.disabled = false;
             return
         };
         refs.loadMore.disabled = false;
@@ -137,7 +138,7 @@ function onClickInfScroll() {
     loadMore()
 }
 
-function infiniteScroll() {
+export function infiniteScroll() {
     // console.log(window.scrollY) //scrolled from top
     // console.log(window.innerHeight) //visible part of screen
     if (window.scrollY + window.innerHeight >=
