@@ -7,6 +7,7 @@ import { Report } from 'notiflix/build/notiflix-report-aio';
 import SimpleLightbox from 'simplelightbox';
 // Дополнительный импорт стилей
 import "simplelightbox/dist/simple-lightbox.min.css";
+import { forEach } from 'lodash';
 
 const refs = {
     form: document.querySelector('#search-form'),
@@ -33,6 +34,7 @@ let currentSearchInput = '';
 refs.form.addEventListener('submit', onSubmit)
 refs.loadMore.addEventListener('click', onClick)
 refs.infScroll.addEventListener('click', onClickInfScroll)
+refs.gallery.addEventListener('click', createLightboxOnClick)
 
 
 function onSubmit(e) {
@@ -152,3 +154,11 @@ export function refreshLightBox() {
     }
     refs.lightbox.refresh()
 }
+
+function createLightboxOnClick(e) {
+    const lightboxLink = document.querySelectorAll('.gallery__link')
+    if (e.target === lightboxLink) {
+        refreshLightBox()
+    }
+}
+

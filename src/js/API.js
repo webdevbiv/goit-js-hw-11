@@ -39,10 +39,10 @@ export default class APIsearch {
         } catch (e) {
             if (e.toJSON().message ===
                 'Request failed with status code 400') {
+                refreshLightBox()
                 window.removeEventListener('scroll', infiniteScroll)
                 Notify.warning(`We're sorry, but you've reached the end of search results.`);
                 hideLoadButtons()
-                refreshLightBox()
                 return
             }
             console.log(e);
